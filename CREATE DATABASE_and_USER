@@ -1,10 +1,35 @@
 #은 MYSQL에서 주석입니다.
 
-CREATE DATABASE lsh_db default CHARACTER SET UTF8;
-lsh_db라는 이름의 데이터베이스를 만들고 db는 UTF8형식으로 설정하겠다
+CREATE DATABASE dba default CHARACTER SET UTF8;
+dba라는 이름의 데이터베이스를 만들고 db는 UTF8형식으로 설정하겠다
 
-SHOW DATABASE;
+SHOW DATABASES;
 #현재 있는 DB를 보여주라
 
 #데이터 베이스의 모든 이름(데이터 베이스, 테이블, 칼럼)에는 소문자를 사용하고
 #데이터 베이스 조작어 (CREATE,SELECT 등)에는 대문자를 사용하는 편이 좋다.
+
+
+#2. 데이터 베이스를 사용할 사용자 추가(GRANT PRIVILEGES)
+CREATE USER 'dba'@'localhost' IDENTIFIED BY 'pw123!' PASSWORD EXPIRE NEVER;
+# CREATE USER 사용자아이디@접속권한 IDENTIFIED BY '비밀번호' PASSWORD EXPIRE NEVER;
+# EXPIRE NEVER는 사용자의 비밀번호 만료기간이 없다라고 설정
+
+GRANT ALL PRIVILEGES ON dba.* TO 'dba'@'localhost';
+# GRANT는 사용자에게 데이터 베이스의 사용 권한을 적용합니다.
+# ON 'dba'.* 권한 대상은 dba(사용자) 이며, dba.*이라하는 것은 dba(테이블)의 모든 테이블을 의미함
+# TO 'dba'@'localhost' 사용 권한을 받는 사용자는 dba(사용자)이며 localhost는 말 그대로 로컬에서만 연결 가능하다.
+# (localhost가 아닌 외부에서 접근하려고 한다면 'local host 대신 모든 것을 뜻하는 '%'를 붙여준다.)
+
+FLUSH PRIVILEGES;
+# 보통은 INSERT, DELETE, UPDATE를 통해 사용자를 추가, 삭제, 권한 변경 등을 수행하였을 때 이 변경 사항을 반영하기 위하여 사용한다.
+# 이 떄 FLUSH PRIVILEGES는 grant 테이블을 reload함으로서 변경 사항을 즉시 반영하도록 한다.
+
+EXIT;
+# 현재 연결된 mysql을 닫는다.(현재는 root 권한으로 로그인 되어있고 방금 사용자로 mysql에 접속하기 위함이다.)
+
+mysql -u lsh_user -p
+# mysql -u 아이디 -p 이라고 치면 다음줄에 pw를 입력하라고 뜬다.
+
+USE dba;
+# 만든 데이터베이스 연결
