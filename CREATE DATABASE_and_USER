@@ -1,0 +1,10 @@
+#은 MYSQL에서 주석입니다.
+
+CREATE DATABASE lsh_db default CHARACTER SET UTF8;
+lsh_db라는 이름의 데이터베이스를 만들고 db는 UTF8형식으로 설정하겠다
+
+SHOW DATABASE;
+#현재 있는 DB를 보여주라
+
+#데이터 베이스의 모든 이름(데이터 베이스, 테이블, 칼럼)에는 소문자를 사용하고
+#데이터 베이스 조작어 (CREATE,SELECT 등)에는 대문자를 사용하는 편이 좋다.
